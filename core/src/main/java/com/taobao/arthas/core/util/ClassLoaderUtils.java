@@ -1,5 +1,7 @@
 package com.taobao.arthas.core.util;
 
+import com.taobao.arthas.core.util.matcher.WildcardMatcher;
+
 import java.lang.instrument.Instrumentation;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -44,17 +46,18 @@ public class ClassLoaderUtils {
     /**
      * 通过类名查找classloader
      * @param inst
-     * @param classLoaderClassName
+     * @param classPattern
      * @return
      */
-    public static List<ClassLoader> getClassLoaderByClassName(Instrumentation inst, String classLoaderClassName) {
-        if (classLoaderClassName == null || classLoaderClassName.isEmpty()) {
+    public static List<ClassLoader> getClassLoaderByClassName(Instrumentation inst, String classPattern) {
+        if (classPattern == null || classPattern.isEmpty()) {
             return null;
         }
+        WildcardMatcher classMatcher = new WildcardMatcher(classPattern);
         Set<ClassLoader> classLoaderSet = getAllClassLoader(inst);
         List<ClassLoader> matchClassLoaders = new ArrayList<ClassLoader>();
         for (ClassLoader classLoader : classLoaderSet) {
-            if (classLoader.getClass().getName().equals(classLoaderClassName)) {
+            if (classMatcher.matching(classLoader.getClass().getName())) {
                 matchClassLoaders.add(classLoader);
             }
         }

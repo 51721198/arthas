@@ -58,7 +58,7 @@ public class OgnlCommand extends AnnotatedCommand {
     }
 
     @Option(longName = "classLoaderClass")
-    @Description("The class name of the special class's classLoader.")
+    @Description("The class name pattern of the special class's classLoader, for example: --classLoaderClass *LaunchedURLClassLoader")
     public void setClassLoaderClass(String classLoaderClass) {
         this.classLoaderClass = classLoaderClass;
     }

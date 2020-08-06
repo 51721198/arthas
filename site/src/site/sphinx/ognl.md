@@ -11,7 +11,7 @@ ognl
 |---:|:---|
 |*express*|执行的表达式|
 |`[c:]`|执行表达式的 ClassLoader 的 hashcode，默认值是SystemClassLoader|
-|`[classLoaderClass:]`|指定执行表达式的 ClassLoader 的 class name|
+|`[classLoaderClass:]`|指定执行表达式的 ClassLoader 的 class name pattern，支持通配符匹配|
 |[x]|结果对象的展开层次，默认值1|
 
 
@@ -71,10 +71,10 @@ $
 ```
 注意hashcode是变化的，需要先查看当前的ClassLoader信息，提取对应ClassLoader的hashcode。
 
-对于只有唯一实例的ClassLoader可以通过class name指定，使用起来更加方便：
+对于只有唯一实例的ClassLoader可以通过class name pattern指定，使用起来更加方便：
 
 ```bash
-$ ognl --classLoaderClass org.springframework.boot.loader.LaunchedURLClassLoader  @org.springframework.boot.SpringApplication@logger
+$ ognl --classLoaderClass *LaunchedURLClassLoader @org.springframework.boot.SpringApplication@logger
 @Slf4jLocationAwareLog[
     FQCN=@String[org.apache.commons.logging.LogAdapter$Slf4jLocationAwareLog],
     name=@String[org.springframework.boot.SpringApplication],

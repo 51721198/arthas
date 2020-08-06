@@ -11,7 +11,7 @@ Since 3.0.5.
 |---:|:---|
 |*express*|expression to be executed|
 |`[c:]`| The hashcode of the ClassLoader that executes the expression, default ClassLoader is SystemClassLoader. |
-|`[classLoaderClass:]`| The class name of the ClassLoader that executes the expression. |
+|`[classLoaderClass:]`| The class name pattern of the ClassLoader that executes the expression, support wildcard matching. |
 |[x]|Expand level of object (1 by default).|
 
 
@@ -71,10 +71,11 @@ $
 ```
 Note that the hashcode changes, you need to check the current ClassLoader information first, and extract the hashcode corresponding to the ClassLoader.
 
-For ClassLoader with only unique instance, it can be specified by class name, which is more convenient to use:
+For ClassLoader with only unique instance, it can be specified by class
+name pattern, which is more convenient to use:
 
 ```bash
-$ ognl --classLoaderClass org.springframework.boot.loader.LaunchedURLClassLoader  @org.springframework.boot.SpringApplication@logger
+$ ognl --classLoaderClass *LaunchedURLClassLoader  @org.springframework.boot.SpringApplication@logger
 @Slf4jLocationAwareLog[
     FQCN=@String[org.apache.commons.logging.LogAdapter$Slf4jLocationAwareLog],
     name=@String[org.springframework.boot.SpringApplication],
